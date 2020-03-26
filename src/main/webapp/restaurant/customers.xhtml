@@ -6,28 +6,57 @@
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+<style>
+    table, th, tr{
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    tr:first-child{
+        background-color: #00926B;
+        color: aliceblue;
+    }
+    h2, h1{
+        text-align: center;
+    }
+    input[type=submit]{
+        background-color: limegreen;
+        color:white;
+    }
+
+</style>
 
 <h:head/>
 <h:body>
-    <h1> Table description: #{customers.tableEntity.description} capaacity: #{customers.tableEntity.capacity}</h1>
-    <h2>Current customers list:</h2>
-    <ol>
+    <h1> Table</h1>
+    <h2> #{customers.tableEntity.description} capaacity: #{customers.tableEntity.capacity}</h2>
+    <h2>Regitered Participants List</h2>
+    <table style="width:100%;">
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Reservation time</th>
+        </tr>
         <ui:repeat value="#{customers.tableEntity.customers}" var="c">
-            <li>
-                <h3> Customer details: #{c.name} #{c.surname}, reservation time: #{c.reservationTime} </h3>
-            </li>
+            <tr>
+                <th>#{c.name}</th>
+                <th>#{c.surname}</th>
+                <th>#{c.reservationTime}</th>
+            </tr>
         </ui:repeat>
-    </ol>
-    <h2>Choose from customers list customer to add:</h2>
+    </table>
+    <h3>Choose from customers list customer to add:</h3>
     <h:form>
         <h:selectOneMenu value="#{customers.selectedCustomerId}">
             <f:selectItems value="#{customers.allCustomers}" var="c"
                            itemLabel="#{c.name} #{c.surname}" itemValue="#{c.id}"/>
         </h:selectOneMenu>
+        <h:outputText value="&lt;br/&gt;" escape="false" />
         <h:commandButton value="Add Customer From list" action="#{customers.editCustomer}">
             <f:param name="tableEntityId" value="#{customers.tableEntity.id}" />
         </h:commandButton>
     </h:form>
+    <h:outputText value="&lt;br/&gt;" escape="false" />
+    <h3>Create new customer</h3>
     <h:form>
         <h:inputText a:placeholder="name" value="#{customers.customerToCreate.name}" required="true"/>
         <h:outputText value="&lt;br/&gt;" escape="false" />

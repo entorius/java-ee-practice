@@ -29,4 +29,5 @@ public interface TableCustomerMapper {
      * @mbg.generated Thu Mar 12 11:58:57 EET 2020
      */
     List<TableCustomer> selectAll();
+
 }

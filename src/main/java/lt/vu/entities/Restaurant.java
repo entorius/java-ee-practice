@@ -29,7 +29,7 @@ public class Restaurant {
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(mappedBy = "restaurant", cascade=CascadeType.ALL, orphanRemoval=true)
     private List<TableEntity> tables = new ArrayList<>();
 
     @Override

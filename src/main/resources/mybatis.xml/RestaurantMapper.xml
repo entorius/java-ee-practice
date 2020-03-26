@@ -9,6 +9,9 @@
     -->
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <!--    collections of TableEntities    -->
+    <collection property="tables" ofType="lt.vu.mybatis.model.TableEntity"
+                 select="selectTablesFromRestaurant" column="restaurant_id" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
@@ -56,5 +59,11 @@
     -->
     select ID, NAME
     from PUBLIC.RESTAURANT
+  </select>
+  <select id="selectTablesFromRestaurant" resultMap="BaseResultMap">
+
+    select *
+    from PUBLIC.RESTAURANT
+    where ID = #{restaurant_id}
   </select>
 </mapper>

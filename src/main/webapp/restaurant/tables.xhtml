@@ -5,19 +5,55 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://java.sun.com/jsf/core">
+<style>
+    table, th, tr{
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    tr:first-child{
+        background-color: #00926B;
+        color: aliceblue;
+    }
+    h2, h1{
+        text-align: center;
+    }
+    input[type=submit]{
+        background-color: limegreen;
+        color:white;
+    }
+
+</style>
 <h:head/>
 <h:body>
+    <h2>Restaurant:</h2>
+    <h2>#{tables.restaurant.name}</h2>
     <h2>Tables list:</h2>
-    <ol>
+    <table style="width:100%;">
+        <tr>
+            <th>Description</th>
+            <th>Capacity</th>
+            <th>Edit customers</th>
+        </tr>
         <ui:repeat value="#{tables.restaurant.tables}" var="table">
-            <li>
-                <h:link value=" #{table.description}, capacity: #{table.capacity}" outcome="customers?tableEntityId=#{table.id}"/>
-            </li>
+            <tr>
+                <th>#{table.description}</th>
+                <th>#{table.capacity}</th>
+                <th>
+                    <h:link outcome="customers?tableEntityId=#{table.id}">
+                        <input type="submit" value="Edit customers" />
+                    </h:link>
+                </th>
+            </tr>
         </ui:repeat>
-    </ol>
+    </table>
+    <h3>Add Table:</h3>
     <h:form>
         <h:inputText a:placeholder="capacity" value="#{tables.tableEntityToCreate.capacity}" required="true" />
+        <h:outputText value="&lt;br/&gt;" escape="false" />
+        <h:outputText value="&lt;br/&gt;" escape="false" />
         <h:inputText a:placeholder="description" value="#{tables.tableEntityToCreate.description}" required="true" />
+        <h:outputText value="&lt;br/&gt;" escape="false" />
+        <h:outputText value="&lt;br/&gt;" escape="false" />
         <h:commandButton value="Add table" action="#{tables.createTableEntity}" >
             <f:param name="restaurantId" value="#{tables.restaurant.id}" />
         </h:commandButton>

@@ -27,4 +27,11 @@ public class RestaurantDAO {
     public Restaurant update(Restaurant restaurant){
         return em.merge(restaurant);
     }
+
+    public void deleteById(Integer id) {
+        Restaurant restaurant = em.find(Restaurant.class, id);
+
+        em.remove(restaurant);
+    }
+
 }
